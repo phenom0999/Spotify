@@ -1,147 +1,62 @@
-# Project Title: Statstify
+# Statstify - Spotify Statistics Viewer
 
-# Video Demo:  
+A web application that provides personalized Spotify listening statistics using the Spotify Web API. View your top tracks, artists, and detailed audio features based on different time periods.
 
+**Demo:** [YouTube](https://www.youtube.com/watch?v=xiUjepA6zVE)
 
-# Description:
+## Features
 
-## Summary of the project:
-This project, named "Statstify," utilizes the Spotify API to provide users with personalized music statistics.
+- **OAuth Authentication** - Secure login through Spotify account
+- **Top Tracks & Artists** - View your favorites across three time ranges (1 month, 6 months, 1 year)
+- **Search Functionality** - Look up detailed stats for any track or artist
+- **Audio Analysis** - View technical audio features (tempo, key, energy, etc.)
 
-Users can log in to Statstify using their Spotify account. Upon successful login, they can view their top 5 tracks and artists, categorized by different time ranges: short term (1 month), medium term (6 months), and long term (1 year). Additionally, users can access detailed information about these tracks and artists.
+## Tech Stack
 
-Statstify also offers a search functionality, allowing users to look up individual tracks and artists by clicking the "Song Stats" and "Artist Stats" links to view detailed statistics.
+**Python** | **Flask** | **Spotify Web API** | **OAuth 2.0** | **HTML/CSS** | **JavaScript**
 
-I have implemented OAuth to authorize users and obtain the access token required for making API calls.
+## Setup
 
+1. Clone the repository
+2. Create `.env` file with your Spotify API credentials:
+```
+CLIENT_ID=your_client_id
+CLIENT_SECRET=your_client_secret
+```
+3. Install dependencies:
+```bash
+pip install flask requests python-dotenv
+```
+4. Run the application:
+```bash
+python app.py
+```
 
-## File details:
+## Project Structure
+```
+├── app.py              # Main Flask application
+├── extra/              # Helper modules
+│   ├── helpers.py      # Authentication & utility functions
+│   ├── helpers2.py     # Data extraction functions
+│   └── queries.py      # Spotify API calls
+├── templates/          # HTML templates
+├── static/             # CSS and JavaScript
+└── .env                # API credentials (not committed)
+```
 
-### 1. extra:
-This directory mostly has helper files
-    
-#### helpers.py:
-This file contains some helper functions.
+## Usage
 
-It has access_required function to check if the user has access to view the pages other than the login page. 
-It also has session_expiry function that checks if the access token has been expired. 
+1. Visit the application and click "Login with Spotify"
+2. Authorize Statstify to access your Spotify data
+3. View your top tracks and artists on the homepage
+4. Use search features to explore individual tracks and artists
 
-It also has apology function that renders "apology.html" template when there is some error while loading a page.
+## API Classes
 
-It has other simple funtions to convert the integers returned by spotify into their specific value. 
-
-#### helpers2.py:
-It has some functions that return data extracted from the JSON provided by spotify api by creating instances of specific classes.
-
-#### queries.py
-This file contains api calls.
-
-I have made multiple classes to make a special type of API call.
-
-userProile() requests for username and user profile picture
-
-topTracks() requests for user's top tracks
-
-topArtists()requests for user's top artists
-
-searchTracks() requests for search results for tracks that the user makes the query for.
-
-searchArtists() requests for search results for artists that the user makes the query for.
-
-trackStats() requests for audio features of tracks
-
-trackByID() requests for track details by providing the track's ID.
-
-artistByID() requests for artist details by providing the artist's ID.
-
-### static
-This directory has static css and js files.
-
-#### script.js
-This file has a small amount of code. It makes sure that the value is auto submitted after the user makes changes to the time-period in the homepage.
-
-#### style.css
-This file contains all the styling for my website.
-
-### templates
-This directory contains all the html templates for my websites.
-
-#### apology.html:
-This has apology message
-
-#### artist-stats-details.html:
-This displays the stats for each artist
-
-#### song-stats-details.html:
-This displays the stats for each track
-
-#### artist-stats.html
-This provides the search bar to look up artists.
-
-#### artists-list.html
-This displays all the artists that are the result of the query from the user.
-
-#### home.html
-This is the homepage of my website. This contains all the information about the user's top tracks and artists. It also has navigation bar to go to other pages.
-
-#### layout1.html
-This is the basic layout that I have used in almost all of my web pages.
-
-#### song-stats.html
-This provides the search bar to look up tracks.
-
-#### songs-list.html
-This displays all the trakcs that are the result of the query from the user.
-
-#### successful.html
-This displays that the autorization has been successful
-
-#### test.html
-This was used to test some code while developing the website.
-
-#### welcome.html
-This page welcomes the user and asks for them to log in using Spotify.
-
-#### .env
-This contains client id and client secret. 
-
-### app.py
-This is the main file of my project.
-
-This file initializes the flask app.
-
-It has routes that the user is directed to.
-
-#### '/'
-This sends the user to the welcome page.
-
-#### '/login'
-This provides scope with other necessary parameters to spotify to ask the user to autorize to fetch their data and request for 'code'.
-
-#### 'callback'
-It the authorization was unsuccessful, an error messge is displayed.
-Otherwise, 'code' is attained and it can be used to request for access token to make further api calls.
-After all this, the user is sent to the successful.html page.
-
-#### '/refresh-token':
-This route check if the access token has expired and uses refresh token to get another access token.
-
-#### '/home':
-This route gets the necessary data to display user's top tracks and artists and renders home.html
-
-
-#### 'song-stats':
-This route renders song-stats.html if the request method is get.
-If the request method is post, it gets search results and renders songs-list.html
-
-#### 'artist-stats':
-This route renders artist-stats.html if the request method is get.
-If the request method is post, it gets search results and renders artists-list.html
-
-#### '/artist-stats-details':
-This route gets the necessary details about certain artist and renders artist-stats-detail.html to display the data.
-
-#### '/track-stats-details':
-This route gets the necessary details about certain track and renders track-stats-detail.html to display the data.
-
-
+- `userProfile()` - User information and profile picture
+- `topTracks()` - User's most played tracks
+- `topArtists()` - User's most listened artists
+- `searchTracks()` - Search for specific tracks
+- `searchArtists()` - Search for specific artists
+- `trackStats()` - Detailed audio features
+- `trackByID()` / `artistByID()` - Get details by ID
